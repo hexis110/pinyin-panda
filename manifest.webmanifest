@@ -1,0 +1,33 @@
+{
+  "name": "Pinyin Panda",
+  "short_name": "Pinyin Panda",
+  "description": "Practise Hanyu Pinyin with the Primary 1-2 Chinese character list.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff7e6",
+  "theme_color": "#ff8a00",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

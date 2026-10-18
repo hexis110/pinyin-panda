@@ -1,7 +1,7 @@
 {
   "name": "Pinyin Panda",
   "short_name": "Pinyin Panda",
-  "description": "Practise Hanyu Pinyin with the Primary 1-2 Chinese character list.",
+  "description": "Practise Hanyu Pinyin with games, levels and trophies (Primary 1-2 Chinese character list).",
   "id": "./",
   "start_url": "./index.html",
   "scope": "./",

@@ -12,85 +12,191 @@
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-:root{--bg:#fff7e6;--card:#fff;--ink:#2b2b2b;--accent:#ff8a00;--good:#2e9e4f;--bad:#e0453a;--line:#f1d9a8}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a14;--card:#2a261d;--ink:#f6efe0;--accent:#ffa733;--good:#4cc76f;--bad:#ff6a5e;--line:#4a4130;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1d1a14;--card:#2a261d;--ink:#f6efe0;--accent:#ffa733;--good:#4cc76f;--bad:#ff6a5e;--line:#4a4130;color-scheme:dark}
+:root{--bg:#fff7e6;--card:#fff;--ink:#2b2b2b;--accent:#ff8a00;--good:#2e9e4f;--bad:#e0453a;--line:#f1d9a8;--soft:#fff0cf;--gold:#ffc83d;--grn:#b9e8a6;--yel:#ffe69a;--gry:#e7e2d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1a14;--card:#2a261d;--ink:#f6efe0;--accent:#ffa733;--good:#4cc76f;--bad:#ff6a5e;--line:#4a4130;--soft:#352f22;--gold:#c99a12;--grn:#35663a;--yel:#6b5a1c;--gry:#39342a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1d1a14;--card:#2a261d;--ink:#f6efe0;--accent:#ffa733;--good:#4cc76f;--bad:#ff6a5e;--line:#4a4130;--soft:#352f22;--gold:#c99a12;--grn:#35663a;--yel:#6b5a1c;--gry:#39342a;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%}
 body{background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;display:flex;justify-content:center}
-.app{width:100%;max-width:520px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));text-align:center}
-h1{margin:8px 0;font-size:2rem}
-p{margin:8px 0}
-.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:18px;margin:12px 0}
-.big{font-size:5rem;line-height:1.1}
-.pic{font-size:3.2rem;line-height:1.2;min-height:1.2em}
-.han{font-size:5.5rem;font-weight:700;line-height:1.15;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.app{width:100%;max-width:520px;padding:calc(14px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px));text-align:center}
+h1{margin:4px 0;font-size:1.8rem}
+h2{margin:8px 0;font-size:1.3rem}
+p{margin:6px 0}
+.cjk{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:14px;margin:10px 0}
 button,select{font:inherit;color:var(--ink)}
 button{cursor:pointer}
-.btn{background:var(--accent);color:#fff;border:0;border-radius:16px;padding:14px 28px;font-size:1.4rem;font-weight:700;width:100%;margin:8px 0}
-.opts{display:grid;gap:10px;margin-top:12px}
-.opt{background:var(--card);border:3px solid var(--line);border-radius:16px;padding:14px;font-size:2rem;font-weight:700}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:16px;padding:14px 18px;font-size:1.25rem;font-weight:700;width:100%;margin:6px 0}
+.btn small{display:block;font-size:.85rem;font-weight:400;opacity:.95}
+.btn.alt{background:#7a5cff}
+.btn.ghost{background:var(--card);color:var(--ink);border:3px solid var(--line)}
+.btn:disabled{opacity:.45}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.row .btn{width:auto;flex:1;font-size:1rem;padding:10px 12px}
+.tip{font-size:.9rem;opacity:.8}
+.bar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .35s}
+.bar.xp i{background:#7a5cff}
+.bar.goal i{background:var(--good)}
+.prof{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;text-align:left}
+.avatar{font-size:3.2rem;grid-row:span 2}
+.lvl{font-weight:700;font-size:1.15rem}
+.chips{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:.95rem;margin-top:6px}
+.chip{background:var(--soft);border-radius:12px;padding:6px 10px;flex:1}
+.tones{display:flex;justify-content:space-around;font-size:1.8rem;font-weight:700}
+.tones small{display:block;font-size:.7rem;font-weight:400}
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 2px}
+.pick label{display:block;text-align:left;font-size:.8rem;opacity:.8;margin-bottom:3px}
+select{width:100%;padding:9px;border-radius:12px;border:3px solid var(--line);background:var(--card);font-size:1rem}
+.chipbtn{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:8px 12px;font-weight:700;font-size:.95rem;margin:6px 0}
+.chipbtn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chipbtn:disabled{opacity:.45}
+.top{display:flex;justify-content:space-between;font-size:1.05rem;font-weight:700}
+.pic{font-size:3rem;line-height:1.2;min-height:1.2em}
+.han{font-size:5.5rem;font-weight:700;line-height:1.15}
+.pin{font-size:3.8rem;font-weight:700;line-height:1.3}
+.speak{background:none;border:3px solid var(--line);border-radius:50%;width:52px;height:52px;font-size:1.5rem}
+.opts{display:grid;gap:10px;margin-top:10px}
+.opts.chars{grid-template-columns:repeat(3,1fr)}
+.opt{background:var(--card);border:3px solid var(--line);border-radius:16px;padding:14px 6px;font-size:1.9rem;font-weight:700}
+.opts.chars .opt{font-size:3rem;padding:12px 4px}
 .opt.good{background:var(--good);color:#fff;border-color:var(--good)}
 .opt.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
-.top{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:700}
-.bar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;margin:8px 0}
-.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
-.tones{display:flex;justify-content:space-around;font-size:2.2rem;font-weight:700}
-.tones small{display:block;font-size:.8rem;font-weight:400}
-.tip{font-size:.95rem;opacity:.8}
-.speak{background:none;border:3px solid var(--line);border-radius:50%;width:54px;height:54px;font-size:1.6rem}
-.msg{min-height:1.6em;font-size:1.2rem;font-weight:700;margin-top:10px}
-.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 2px}
-.pick label{display:block;text-align:left;font-size:.85rem;opacity:.8;margin-bottom:4px}
-select{width:100%;padding:10px;border-radius:12px;border:3px solid var(--line);background:var(--card);font-size:1.05rem}
+.combo{min-height:1.5em;font-weight:700;color:var(--accent);font-size:1.1rem}
+.msg{min-height:1.6em;font-size:1.15rem;font-weight:700;margin-top:6px}
+.stars{font-size:3.2rem;letter-spacing:6px}
+.banner{background:linear-gradient(90deg,#7a5cff,#ff8a00);color:#fff;border-radius:16px;padding:10px;font-weight:700;margin:8px 0}
+.mini{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.mini .m{background:var(--soft);border-radius:14px;padding:6px 10px;font-size:1rem}
+.mini .m b{font-size:1.5rem;margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px}
+.cell{border:2px solid var(--line);border-radius:12px;padding:8px 0;font-size:1.6rem;font-weight:700;background:var(--gry);position:relative}
+.cell.s1{background:var(--yel)}.cell.s2{background:var(--grn)}.cell.s3{background:var(--gold)}
+.cell.t::after{content:"🎯";font-size:.7rem;position:absolute;top:0;right:2px}
+.cell.sel{outline:3px solid var(--accent)}
+.legend{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;font-size:.8rem;margin:6px 0}
+.legend span{padding:2px 8px;border-radius:10px;border:2px solid var(--line)}
+.tabs{display:flex;gap:6px;justify-content:center;margin:8px 0}
+.tabs button{flex:1;padding:8px 0;border-radius:12px;border:3px solid var(--line);background:var(--card);font-weight:700}
+.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.detail .bigc{font-size:4rem;font-weight:700;line-height:1.1}
+.trophies{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tr{border:3px solid var(--line);border-radius:16px;padding:10px;background:var(--card);text-align:center}
+.tr .e{font-size:2.4rem}
+.tr.locked{opacity:.45;filter:grayscale(1)}
+.tr small{display:block;font-size:.78rem;opacity:.85}
+#toast{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top,0px));transform:translate(-50%,-150%);background:#2b2b2b;color:#fff;padding:10px 16px;border-radius:14px;font-weight:700;z-index:20;transition:transform .3s;max-width:90%}
+#toast.show{transform:translate(-50%,0)}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:15}
+.fxp{position:absolute;top:-10%;font-size:1.8rem;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(360deg);opacity:.9}}
+@media (prefers-reduced-motion:reduce){.fxp{display:none}.bar i{transition:none}}
 .hide{display:none}
 </style>
 </head>
 <body>
 <div class="app">
-  <div id="start">
-    <div class="big">🐼</div>
-    <h1>Pinyin Panda</h1>
-    <p>Look at the Chinese character. Pick the correct pinyin!</p>
+
+  <!-- HOME -->
+  <div id="home">
+    <h1>🐼 Pinyin Panda</h1>
+    <div class="card prof">
+      <div class="avatar" id="avatar">🐼</div>
+      <div class="lvl" id="lvl"></div>
+      <div><div class="bar xp"><i id="xpbar"></i></div><div class="tip" id="xptxt"></div></div>
+    </div>
+    <div class="chips">
+      <div class="chip" id="streak"></div>
+      <div class="chip" id="goal"></div>
+    </div>
+    <div class="bar goal"><i id="goalbar"></i></div>
+
+    <div class="pick">
+      <div><label for="selTerm">Words from</label><select id="selTerm"></select></div>
+      <div><label for="selLesson">Lesson</label><select id="selLesson"></select></div>
+    </div>
+    <button class="chipbtn" id="tricky"></button>
+    <p class="tip" id="poolInfo"></p>
+
+    <button class="btn" id="c1">🔤 Challenge 1: Read it<small>See the character, pick the pinyin</small></button>
+    <div class="tip" id="b1"></div>
+    <button class="btn alt" id="c2">👀 Challenge 2: Find it<small>See the pinyin, pick the character</small></button>
+    <div class="tip" id="b2"></div>
+
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost" id="openColl">🗂️ My characters</button>
+      <button class="btn ghost" id="openTrophy">🏆 Trophies</button>
+      <button class="btn ghost" id="snd" aria-label="Sound">🔊</button>
+    </div>
     <div class="card">
       <div class="tones">
         <div>ā<small>1 flat</small></div><div>á<small>2 up</small></div><div>ǎ<small>3 dip</small></div><div>à<small>4 down</small></div>
       </div>
       <div class="tip">No mark = light tone (like ma in māma)</div>
     </div>
-    <div class="pick">
-      <div><label for="selTerm">Words from</label><select id="selTerm"></select></div>
-      <div><label for="selLesson">Lesson</label><select id="selLesson"></select></div>
-    </div>
-    <p class="tip" id="poolInfo"></p>
-    <button class="btn" id="go">Play!</button>
-    <p id="best"></p>
   </div>
 
+  <!-- PLAY -->
   <div id="play" class="hide">
     <div class="top"><span id="rd"></span><span id="sc"></span></div>
     <div class="bar"><i id="pg"></i></div>
+    <div class="combo" id="combo"></div>
     <div class="card">
       <div class="pic" id="pic"></div>
-      <div class="han" id="han"></div>
+      <div class="han cjk" id="han"></div>
+      <div class="pin" id="pin"></div>
       <button class="speak" id="spk" aria-label="Hear it">🔊</button>
     </div>
     <div class="opts" id="opts"></div>
     <div class="msg" id="msg"></div>
+    <button class="chipbtn" id="quit" style="margin-top:14px">⬅ Stop</button>
   </div>
 
+  <!-- END -->
   <div id="end" class="hide">
-    <div class="big" id="medal"></div>
+    <div class="stars" id="stars"></div>
     <h1 id="final"></h1>
     <p id="endmsg"></p>
+    <div class="mini" id="xpline"></div>
+    <div class="banner hide" id="lvlup"></div>
+    <div id="newbadges"></div>
+    <div class="card hide" id="missedBox"><h2>Words to practise</h2><div class="mini" id="missed"></div></div>
     <button class="btn" id="again">Play again</button>
-    <button class="btn" id="menu" style="background:var(--card);color:var(--ink);border:3px solid var(--line)">Change words</button>
+    <button class="btn ghost" id="home2">Home</button>
+  </div>
+
+  <!-- COLLECTION -->
+  <div id="coll" class="hide">
+    <button class="chipbtn" id="back1">⬅ Back</button>
+    <h2>🗂️ My characters</h2>
+    <p class="tip" id="collSum"></p>
+    <div class="legend"><span style="background:var(--gry)">New</span><span style="background:var(--yel)">Learning</span><span style="background:var(--grn)">Growing</span><span style="background:var(--gold)">Mastered</span><span>🎯 tricky</span></div>
+    <div class="tabs" id="collTabs"></div>
+    <div class="card detail hide" id="detail">
+      <div class="bigc cjk" id="dChar"></div>
+      <div class="pin" id="dPin" style="font-size:2.2rem"></div>
+      <div class="tip" id="dInfo"></div>
+      <button class="speak" id="dSpk" aria-label="Hear it">🔊</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <!-- TROPHIES -->
+  <div id="trophy" class="hide">
+    <button class="chipbtn" id="back2">⬅ Back</button>
+    <h2>🏆 Trophies</h2>
+    <p class="tip" id="trSum"></p>
+    <div class="trophies" id="trGrid"></div>
   </div>
 </div>
+<div id="fx"></div>
+<div id="toast"></div>
 <script>
 // [character, emoji hint, main pinyin (tone 0 = light tone), other accepted readings, term index, lesson]
 var DATA=[["衣","👕","yi1",[],0,1],["鱼","🐟","yu2",[],0,1],["雨","🌧️","yu3",[],0,1],["一","","yi1",[],0,1],["二","","er4",[],0,1],["五","","wu3",[],0,1],["耳","👂","er3",[],0,1],["牙","🦷","ya2",[],0,1],["口","👄","kou3",[],0,1],["人","","ren2",[],0,1],["木","🌳","mu4",[],0,2],["土","","tu3",[],0,2],["马","🐴","ma3",[],0,2],["八","","ba1",[],0,2],["巴","","ba1",[],0,2],["你","","ni3",[],0,2],["我","","wo3",[],0,2],["也","","ye3",[],0,2],["他","","ta1",[],0,2],["弟","","di4",[],0,2],["不","","bu4",[],0,2],["女","","nü3",[],0,2],["爸","","ba4",[],0,2],["她","","ta1",[],0,2],["妈","","ma1",[],0,2],["的","","de0",["di4","di2"],0,2],["父","","fu4",[],0,2],["母","","mu3",[],0,2],["儿","","er2",[],0,2],["力","","li4",[],0,3],["河","","he2",[],0,3],["禾","","he2",[],0,3],["立","","li4",[],0,3],["米","🍚","mi3",[],0,3],["合","","he2",[],0,3],["气","","qi4",[],0,3],["和","","he2",["he4","huo2","huo4","hu2"],0,3],["哥","","ge1",[],0,3],["几","","ji3",["ji1"],0,3],["七","","qi1",[],0,3],["个","","ge4",[],0,3],["可","","ke3",[],0,3],["了","","le0",["liao3"],0,3],["句","","ju4",[],0,3],["以","","yi3",[],0,3],["吗","","ma0",[],0,3],["去","","qu4",[],0,3],["日","☀️","ri4",[],0,4],["石","","shi2",[],0,4],["子","","zi3",["zi0"],0,4],["字","","zi4",[],0,4],["车","🚗","che1",[],0,4],["四","","si4",[],0,4],["十","","shi2",[],0,4],["士","","shi4",[],0,4],["只","","zhi1",["zhi3"],0,4],["把","","ba3",["ba4"],0,4],["尺","","chi3",[],0,4],["是","","shi4",[],0,4],["书","📖","shu1",[],0,4],["出","","chu1",[],0,4],["自","","zi4",[],0,4],["己","","ji3",[],0,4],["它","","ta1",[],0,4],["吃","","chi1",[],0,4],["山","⛰️","shan1",[],0,5],["羊","🐑","yang2",[],0,5],["毛","","mao2",[],0,5],["草","🌱","cao3",[],0,5],["太","","tai4",[],0,5],["阳","","yang2",[],0,5],["王","","wang2",[],0,5],["三","","san1",[],0,5],["伞","☂️","san3",[],0,5],["包","","bao1",[],0,5],["老","","lao3",[],0,5],["师","","shi1",[],0,5],["早","","zao3",[],0,5],["安","","an1",[],0,5],["半","","ban4",[],0,5],["午","","wu3",[],0,5],["奶","","nai3",[],0,5],["玩","","wan2",[],0,5],["具","","ju4",[],0,5],["鸟","🐦","niao3",[],0,6],["竹","🎋","zhu2",[],0,6],["田","🌾","tian2",[],0,6],["苗","","miao2",[],0,6],["象","🐘","xiang4",[],0,6],["家","🏠","jia1",[],0,6],["刀","","dao1",[],0,6],["网","🕸️","wang3",[],0,6],["在","","zai4",[],0,6],["里","","li3",[],0,6],["上","","shang4",[],0,6],["下","","xia4",[],0,6],["大","","da4",[],0,6],["小","","xiao3",[],0,6],["来","","lai2",[],0,6],["哭","😢","ku1",[],0,6],["笑","😄","xiao4",[],0,6],["男","","nan2",[],0,6],["爷","","ye2",[],0,6],["姐","","jie3",[],0,6],["果","🍎","guo3",[],0,7],["开","","kai1",[],0,7],["瓜","🍉","gua1",[],0,7],["火","🔥","huo3",[],0,7],["花","🌸","hua1",[],0,7],["叶","🍃","ye4",[],0,7],["面","","mian4",[],0,7],["关","","guan1",[],0,7],["朵","","duo3",[],0,7],["两","","liang3",[],0,7],["长","","chang2",["zhang3"],0,7],["广","","guang3",[],0,7],["片","","pian4",["pian1"],0,7],["画","","hua4",[],0,7],["笔","🖊️","bi3",[],0,7],["多","","duo1",[],0,7],["少","","shao3",["shao4"],0,7],["床","🛏️","chuang2",[],0,7],["目","👁️","mu4",[],0,8],["舌","👅","she2",[],0,8],["手","✋","shou3",[],0,8],["足","🦶","zu2",[],0,8],["本","","ben3",[],0,8],["工","","gong1",[],0,8],["厂","","chang3",[],0,8],["走","","zou3",[],0,8],["跑","","pao3",[],0,8],["飞","✈️","fei1",[],0,8],["门","🚪","men2",[],0,8],["见","","jian4",[],0,8],["妹","","mei4",[],0,8],["看","","kan4",["kan1"],0,8],["问","","wen4",[],0,8],["又","","you4",[],0,8],["头","","tou2",[],0,8],["们","","men0",[],0,8],["身","","shen1",[],0,8],["体","","ti3",[],0,8],["牛","🐮","niu2",[],0,9],["井","","jing3",[],0,9],["虫","🐛","chong2",[],0,9],["弓","","gong1",[],0,9],["贝","","bei4",[],0,9],["心","❤️","xin1",[],0,9],["豆","","dou4",[],0,9],["六","","liu4",[],0,9],["支","","zhi1",[],0,9],["条","","tiao2",[],0,9],["九","","jiu3",[],0,9],["什","","shen2",[],0,9],["粒","","li4",[],0,9],["今","","jin1",[],0,9],["么","","me0",[],0,9],["华","","hua2",[],0,9],["文","","wen2",[],0,9],["点","","dian3",[],0,9],["说","","shuo1",[],0,9],["语","","yu3",[],0,9],["月","🌙","yue4",[],0,10],["天","","tian1",[],0,10],["地","","di4",["de0"],0,10],["风","🌬️","feng1",[],0,10],["雷","","lei2",[],0,10],["电","⚡","dian4",[],0,10],["水","💧","shui3",[],0,10],["寸","","cun4",[],0,10],["方","","fang1",[],0,10],["正","","zheng4",[],0,10],["反","","fan3",[],0,10],["白","⚪","bai2",[],0,10],["好","","hao3",["hao4"],0,10],["坏","","huai4",[],0,10],["对","","dui4",[],0,10],["古","","gu3",[],0,10],["旧","","jiu4",[],0,10],["有","","you3",[],0,10],["没","","mei2",[],0,10],["云","☁️","yun2",[],0,10],["甲","","jia3",[],1,11],["丁","","ding1",[],1,11],["前","","qian2",[],1,11],["后","","hou4",[],1,11],["左","","zuo3",[],1,11],["右","","you4",[],1,11],["中","","zhong1",["zhong4"],1,11],["间","","jian1",["jian4"],1,11],["边","","bian1",[],1,11],["同","","tong2",[],1,11],["学","","xue2",[],1,11],["朋","","peng2",[],1,11],["友","","you3",[],1,11],["坐","","zuo4",[],1,11],["高","","gao1",[],1,11],["发","","fa1",["fa4"],1,11],["直","","zhi2",[],1,11],["起","","qi3",[],1,11],["回","","hui2",[],1,11],["周","","zhou1",[],1,11],["末","","mo4",[],1,11],["鸡","🐔","ji1",[],1,12],["饭","🍚","fan4",[],1,12],["鸭","🦆","ya1",[],1,12],["元","","yuan2",[],1,12],["饿","","e4",[],1,12],["饱","","bao3",[],1,12],["饼","","bing3",[],1,12],["干","","gan1",["gan4"],1,12],["狗","🐶","gou3",[],1,12],["喜","","xi3",[],1,12],["肉","🥩","rou4",[],1,12],["欢","","huan1",[],1,12],["猫","🐱","mao1",[],1,12],["采","","cai3",[],1,12],["歌","","ge1",[],1,12],["唱","","chang4",[],1,12],["青","","qing1",[],1,12],["菜","","cai4",[],1,12],["汤","🍲","tang1",[],1,12],["蛋","🥚","dan4",[],1,12],["香","","xiang1",[],1,12],["用","","yong4",[],1,13],["刷","","shua1",["shua4"],1,13],["巾","","jin1",[],1,13],["抹","","mo3",["ma1","mo4"],1,13],["洗","","xi3",[],1,13],["要","","yao4",["yao1"],1,13],["脸","","lian3",[],1,13],["放","","fang4",[],1,13],["冲","","chong1",["chong4"],1,13],["凉","","liang2",["liang4"],1,13],["东","","dong1",[],1,13],["西","","xi1",[],1,13],["到","","dao4",[],1,13],["先","","xian1",[],1,13],["请","","qing3",[],1,13],["很","","hen3",[],1,13],["泡","","pao4",["pao1"],1,13],["变","","bian4",[],1,13],["谢","","xie4",[],1,13],["这","","zhe4",["zhei4"],1,14],["双","","shuang1",[],1,14],["袜","🧦","wa4",[],1,14],["那","","na4",["nei4"],1,14],["皮","","pi2",[],1,14],["鞋","👟","xie2",[],1,14],["件","","jian4",[],1,14],["服","","fu2",[],1,14],["被","","bei4",[],1,14],["还","","hai2",["huan2"],1,14],["色","","se4",["shai3"],1,14],["红","🔴","hong2",[],1,14],["都","","dou1",["du1"],1,14],["动","","dong4",[],1,14],["作","","zuo4",[],1,14],["快","","kuai4",[],1,14],["收","","shou1",[],1,14],["拾","","shi2",[],1,14],["穿","","chuan1",[],1,14],["事","","shi4",[],1,14],["做","","zuo4",[],1,14],["甜","","tian2",[],1,15],["苦","","ku3",[],1,15],["臭","","chou4",["xiu4"],1,15],["生","","sheng1",[],1,15],["重","","zhong4",["chong2"],1,15],["喝","","he1",[],1,15],["甘","","gan1",[],1,15],["汁","","zhi1",[],1,15],["买","","mai3",[],1,15],["斤","","jin1",[],1,15],["串","","chuan4",[],1,15],["弯","","wan1",[],1,15],["选","","xuan3",[],1,15],["最","","zui4",[],1,15],["抱","","bao4",[],1,15],["拿","","na2",[],1,15],["办","","ban4",[],1,15],["法","","fa3",[],1,15],["圆","","yuan2",[],1,15],["切","","qie1",["qie4"],1,15],["怎","","zen3",[],1,15],["扫","","sao3",["sao4"],1,16],["户","","hu4",[],1,16],["桌","","zhuo1",[],1,16],["椅","","yi3",[],1,16],["兄","","xiong1",[],1,16],["房","","fang2",[],1,16],["阿","","a1",[],1,16],["叔","","shu1",[],1,16],["会","","hui4",["kuai4"],1,16],["写","","xie3",[],1,16],["啊","","a0",["a1","a2","a3","a4"],1,16],["完","","wan2",[],1,16],["业","","ye4",[],1,16],["躲","","duo3",[],1,16],["进","","jin4",[],1,16],["净","","jing4",[],1,16],["谁","","shui2",["shei2"],1,16],["打","","da3",[],1,16],["听","","ting1",[],1,16],["声","","sheng1",[],1,16],["昨","","zuo2",[],1,17],["晚","","wan3",[],1,17],["星","⭐","xing1",[],1,17],["明","","ming2",[],1,17],["庆","","qing4",[],1,17],["祝","","zhu4",[],1,17],["节","","jie2",[],1,17],["爱","","ai4",[],1,17],["给","","gei3",["ji3"],1,17],["国","","guo2",[],1,17],["乐","","le4",["yue4"],1,17],["课","","ke4",[],1,17],["台","","tai2",[],1,17],["讲","","jiang3",[],1,17],["故","","gu4",[],1,17],["每","","mei3",[],1,17],["童","","tong2",[],1,17],["因","","yin1",[],1,17],["为","","wei2",["wei4"],1,17],["兔","🐰","tu4",[],1,18],["尾","","wei3",[],1,18],["短","","duan3",[],1,18],["眼","","yan3",[],1,18],["睛","","jing1",[],1,18],["爪","","zhua3",["zhao3"],1,18],["尖","","jian1",[],1,18],["物","","wu4",[],1,18],["虎","🐯","hu3",[],1,18],["狮","🦁","shi1",[],1,18],["园","","yuan2",[],1,18],["期","","qi1",["qi2"],1,18],["带","","dai4",[],1,18],["黑","⚫","hei1",[],1,18],["站","","zhan4",[],1,18],["叫","","jiao4",[],1,18],["认","","ren4",[],1,18],["话","","hua4",[],1,18],["再","","zai4",[],1,18],["孩","","hai2",[],1,18],["组","","zu3",[],1,19],["屋","","wu1",[],1,19],["公","","gong1",[],1,19],["校","🏫","xiao4",[],1,19],["场","","chang3",["chang2"],1,19],["商","","shang1",[],1,19],["店","🏪","dian4",[],1,19],["梯","","ti1",[],1,19],["扶","","fu2",[],1,19],["常","","chang2",[],1,19],["习","","xi2",[],1,19],["球","⚽","qiu2",[],1,19],["步","","bu4",[],1,19],["图","","tu2",[],1,19],["伙","","huo3",[],1,19],["伴","","ban4",[],1,19],["游","","you2",[],1,19],["拍","","pai1",[],1,19],["兴","","xing4",["xing1"],1,19],["戏","","xi4",[],1,19],["外","","wai4",[],2,1],["美","","mei3",[],2,1],["丑","","chou3",[],2,1],["新","","xin1",[],2,1],["卖","","mai4",[],2,1],["加","","jia1",[],2,1],["亲","","qin1",["qing4"],2,1],["过","","guo4",["guo0"],2,1],["现","","xian4",[],2,1],["些","","xie1",[],2,1],["适","","shi4",[],2,1],["试","","shi4",[],2,1],["年","","nian2",[],2,1],["读","","du2",[],2,1],["级","","ji2",[],2,1],["班","","ban1",[],2,1],["折","","zhe2",["zhe1"],2,1],["帮","","bang1",[],2,1],["专","","zhuan1",[],2,1],["助","","zhu4",[],2,1],["吉","","ji2",[],2,2],["利","","li4",[],2,2],["岁","","sui4",[],2,2],["平","","ping2",[],2,2],["余","","yu2",[],2,2],["全","","quan2",[],2,2],["除","","chu2",[],2,2],["贴","","tie1",[],2,2],["福","","fu2",[],2,2],["时","","shi2",[],2,2],["龙","","long2",[],2,2],["表","","biao3",[],2,2],["演","","yan3",[],2,2],["舞","","wu3",[],2,2],["婆","","po2",[],2,2],["拜","","bai4",[],2,2],["着","","zhe0",["zhao2","zhao1","zhuo2"],2,2],["您","","nin2",[],2,2],["接","","jie1",[],2,2],["卷","","juan3",["juan4"],2,2],["真","","zhen1",[],2,2],["碗","🥣","wan3",[],2,3],["盘","🍽️","pan2",[],2,3],["叉","🍴","cha1",["cha3"],2,3],["筷","🥢","kuai4",[],2,3],["杯","","bei1",[],2,3],["壶","","hu2",[],2,3],["客","","ke4",[],2,3],["送","","song4",[],2,3],["主","","zhu3",[],2,3],["递","","di4",[],2,3],["汽","","qi4",[],2,3],["忙","","mang2",[],2,3],["骨","","gu3",["gu1"],2,3],["伸","","shen1",[],2,3],["尝","","chang2",[],2,3],["原","","yuan2",[],2,3],["各","","ge4",[],2,3],["定","","ding4",[],2,3],["第","","di4",[],2,3],["捉","","zhuo1",[],2,3],["非","","fei1",[],2,3],["棵","","ke1",[],2,4],["树","🌳","shu4",[],2,4],["剪","","jian3",[],2,4],["排","","pai2",["pai3"],2,4],["林","","lin2",[],2,4],["形","","xing2",[],2,4],["角","","jiao3",["jue2"],2,4],["然","","ran2",[],2,4],["拉","","la1",[],2,4],["森","","sen1",[],2,4],["共","","gong4",[],2,4],["页","","ye4",[],2,4],["从","","cong2",[],2,4],["众","","zhong4",[],2,4],["颜","","yan2",[],2,4],["空","","kong1",["kong4"],2,4],["彩","","cai3",[],2,4],["蓝","🔵","lan2",[],2,4],["绿","🟢","lü4",[],2,4],["黄","🟡","huang2",[],2,4],["想","","xiang3",[],2,4],["音","","yin1",[],2,5],["室","","shi4",[],2,5],["哪","","na3",[],2,5],["顶","","ding3",[],2,5],["楼","🏢","lou2",[],2,5],["术","","shu4",[],2,5],["旁","","pang2",[],2,5],["向","","xiang4",[],2,5],["就","","jiu4",[],2,5],["往","","wang3",[],2,5],["运","","yun4",[],2,5],["转","","zhuan4",["zhuan3"],2,5],["操","","cao1",[],2,5],["路","","lu4",[],2,5],["远","","yuan3",[],2,5],["迷","","mi2",[],2,5],["坡","","po1",[],2,5],["久","","jiu3",[],2,5],["答","","da2",["da1"],2,5],["已","","yi3",[],2,5],["经","","jing1",[],2,5],["骑","","qi2",[],2,6],["脚","","jiao3",[],2,6],["踏","","ta4",["ta1"],2,6],["应","","ying1",["ying4"],2,6],["该","","gai1",[],2,6],["行","","xing2",["hang2"],2,6],["桥","🌉","qiao2",[],2,6],["等","","deng3",[],2,6],["停","","ting2",[],2,6],["才","","cai2",[],2,6],["灯","💡","deng1",[],2,6],["亮","","liang4",[],2,6],["邻","","lin2",[],2,6],["居","","ju1",[],2,6],["互","","hu4",[],2,6],["相","","xiang1",["xiang4"],2,6],["光","","guang1",[],2,6],["照","","zhao4",[],2,6],["丽","","li4",[],2,6],["极","","ji2",[],2,6],["茶","🍵","cha2",[],2,7],["糖","🍬","tang2",[],2,7],["炒","","chao3",[],2,7],["油","","you2",[],2,7],["炸","","zha2",["zha4"],2,7],["冰","🧊","bing1",[],2,7],["温","","wen1",[],2,7],["咖","","ka1",["ga1"],2,7],["啡","","fei1",[],2,7],["队","","dui4",[],2,7],["找","","zhao3",[],2,7],["座","","zuo4",[],2,7],["位","","wei4",[],2,7],["特","","te4",[],2,7],["别","","bie2",["bie4"],2,7],["餐","","can1",[],2,7],["闻","","wen2",[],2,7],["味","","wei4",[],2,7],["食","","shi2",[],2,7],["分","","fen1",["fen4"],2,7],["懂","","dong3",[],2,7],["医","🩺","yi1",[],2,8],["病","","bing4",[],2,8],["护","","hu4",[],2,8],["顾","","gu4",[],2,8],["贩","","fan4",[],2,8],["教","","jiao4",["jiao1"],2,8],["种","","zhong3",["zhong4"],2,8],["姨","","yi2",[],2,8],["员","","yuan2",[],2,8],["消","","xiao1",[],2,8],["防","","fang2",[],2,8],["灾","","zai1",[],2,8],["灭","","mie4",[],2,8],["保","","bao3",[],2,8],["抓","","zhua1",[],2,8],["怕","","pa4",[],2,8],["建","","jian4",[],2,8],["住","","zhu4",[],2,8],["阴","","yin1",[],2,9],["晴","🌤️","qing2",[],2,9],["湿","","shi1",[],2,9],["冷","🥶","leng3",[],2,9],["热","🥵","re4",[],2,9],["暗","","an4",[],2,9],["乌","","wu1",[],2,9],["闪","","shan3",[],2,9],["刮","","gua1",[],2,9],["记","","ji4",[],2,9],["得","","de2",["de0","dei3"],2,9],["窗","","chuang1",[],2,9],["忘","","wang4",[],2,9],["急","","ji2",[],2,9],["铃","🔔","ling2",[],2,9],["响","","xiang3",[],2,9],["摸","","mo1",[],2,9],["淋","","lin2",["lin4"],2,9],["呢","","ne0",["ni2"],2,9],["蚂","","ma3",["ma1","ma4"],2,10],["蚁","🐜","yi3",[],2,10],["爬","","pa2",[],2,10],["蜜","","mi4",[],2,10],["蜂","🐝","feng1",[],2,10],["丛","","cong2",[],2,10],["池","","chi2",[],2,10],["枝","","zhi1",[],2,10],["跳","","tiao4",[],2,10],["清","","qing1",[],2,10],["蛙","🐸","wa1",[],2,10],["害","","hai4",[],2,10],["情","","qing2",[],2,10],["让","","rang4",[],2,10],["像","","xiang4",[],2,10],["窝","","wo1",[],2,10],["结","","jie2",["jie1"],2,10],["掉","","diao4",[],2,10],["泥","","ni2",["ni4"],2,10],["成","","cheng2",[],2,10],["纸","","zhi3",[],3,11],["机","","ji1",[],3,11],["块","","kuai4",[],3,11],["跟","","gen1",[],3,11],["棋","","qi2",[],3,11],["搭","","da1",[],3,11],["积","","ji1",[],3,11],["布","","bu4",[],3,11],["娃","","wa2",[],3,11],["吧","","ba0",["ba1"],3,11],["器","","qi4",[],3,11],["许","","xu3",[],3,11],["绳","","sheng2",[],3,11],["捏","","nie1",[],3,11],["拼","","pin1",[],3,11],["船","⛵","chuan2",[],3,11],["更","","geng4",["geng1"],3,11],["鹰","🦅","ying1",[],3,11],["追","","zhui1",[],3,11],["永","","yong3",[],3,12],["轻","","qing1",[],3,12],["命","","ming4",[],3,12],["百","","bai3",[],3,12],["健","","jian4",[],3,12],["康","","kang1",[],3,12],["幸","","xing4",[],3,12],["愿","","yuan4",[],3,12],["吹","","chui1",[],3,12],["糕","🍰","gao1",[],3,12],["卡","","ka3",[],3,12],["首","","shou3",[],3,12],["张","","zhang1",[],3,12],["影","","ying3",[],3,12],["票","","piao4",[],3,12],["礼","","li3",[],3,12],["厅","","ting1",[],3,12],["奇","","qi2",["ji1"],3,12],["怪","","guai4",[],3,12],["活","","huo2",[],3,12],["宝","","bao3",[],3,12],["澡","","zao3",[],3,13],["睡","😴","shui4",[],3,13],["觉","","jiao4",["jue2"],3,13],["羽","","yu3",[],3,13],["乖","","guai1",[],3,13],["总","","zong3",[],3,13],["聪","","cong1",[],3,13],["金","","jin1",[],3,13],["漂","","piao4",["piao1","piao3"],3,13],["吐","","tu3",["tu4"],3,13],["丢","","diu1",[],3,13],["宠","","chong3",[],3,13],["岛","","dao3",[],3,13],["欺","","qi1",[],3,13],["负","","fu4",[],3,13],["梦","","meng4",[],3,13],["围","","wei2",[],3,13],["迎","","ying2",[],3,13],["识","","shi2",[],3,13],["醒","","xing3",[],3,13],["难","","nan2",["nan4"],3,14],["易","","yi4",[],3,14],["粗","","cu1",[],3,14],["细","","xi4",[],3,14],["抢","","qiang3",["qiang1"],3,14],["推","","tui1",[],3,14],["讨","","tao3",[],3,14],["厌","","yan4",[],3,14],["争","","zheng1",[],3,14],["吵","","chao3",["chao1"],3,14],["伤","","shang1",[],3,14],["弄","","nong4",["long4"],3,14],["破","","po4",[],3,14],["撞","","zhuang4",[],3,14],["倒","","dao3",["dao4"],3,14],["容","","rong2",[],3,14],["能","","neng2",[],3,14],["晶","","jing1",[],3,14],["道","","dao4",[],3,14],["虹","🌈","hong2",[],3,14],["茄","🍆","qie2",[],3,15],["紫","🟣","zi3",[],3,15],["番","","fan1",[],3,15],["芽","","ya2",[],3,15],["扁","","bian3",[],3,15],["玉","","yu4",[],3,15],["比","","bi3",[],3,15],["伯","","bo2",[],3,15],["萝","","luo2",[],3,15],["卜","","bo0",["bu3"],3,15],["煮","","zhu3",[],3,15],["鼠","🐭","shu3",[],3,15],["或","","huo4",[],3,15],["者","","zhe3",[],3,15],["猪","🐷","zhu1",[],3,15],["拔","","ba2",[],3,15],["摘","","zhai1",[],3,15],["挖","","wa1",[],3,15],["考","","kao3",[],3,15],["根","","gen1",[],3,15],["实","","shi2",[],3,15],["持","","chi2",[],3,16],["静","","jing4",[],3,16],["绘","","hui4",[],3,16],["趣","","qu4",[],3,16],["借","","jie4",[],3,16],["次","","ci4",[],3,16],["英","","ying1",[],3,16],["遍","","bian4",[],3,16],["架","","jia4",[],3,16],["箱","","xiang1",[],3,16],["盒","","he2",[],3,16],["案","","an4",[],3,16],["附","","fu4",[],3,16],["近","","jin4",[],3,16],["满","","man3",[],3,16],["始","","shi3",[],3,16],["样","","yang4",[],3,16],["候","","hou4",[],3,16],["知","","zhi1",[],3,16],["指","","zhi3",[],3,16],["逛","","guang4",[],3,17],["夜","","ye4",[],3,17],["市","","shi4",[],3,17],["烤","","kao3",[],3,17],["肠","🌭","chang2",[],3,17],["翅","","chi4",[],3,17],["射","","she4",[],3,17],["碰","","peng4",[],3,17],["饮","","yin3",[],3,17],["料","","liao4",[],3,17],["踢","","ti1",[],3,17],["筝","","zheng1",[],3,17],["但","","dan4",[],3,17],["闹","","nao4",[],3,17],["摊","","tan1",[],3,17],["阵","","zhen4",[],3,17],["引","","yin3",[],3,17],["群","","qun2",[],3,17],["套","","tao4",[],3,17],["圈","","quan1",["quan4","juan4"],3,17],["馆","","guan3",[],3,18],["院","","yuan4",[],3,18],["植","","zhi2",[],3,18],["海","🌊","hai3",[],3,18],["岸","","an4",[],3,18],["参","","can1",["cen1","shen1"],3,18],["观","","guan1",[],3,18],["野","","ye3",[],3,18],["泳","","yong3",[],3,18],["沙","🏖️","sha1",[],3,18],["区","","qu1",["ou1"],3,18],["捡","","jian3",[],3,18],["壳","","ke2",["qiao4"],3,18],["处","","chu4",["chu3"],3,18],["街","","jie1",[],3,18],["整","","zheng3",[],3,18],["齐","","qi2",[],3,18],["离","","li2",[],3,18],["城","","cheng2",[],3,18],["浇","","jiao1",[],3,19],["桶","","tong3",[],3,19],["厕","","ce4",[],3,19],["所","","suo3",[],3,19],["告","","gao4",[],3,19],["诉","","su4",[],3,19],["珍","","zhen1",[],3,19],["惜","","xi1",[],3,19],["滴","","di1",[],3,19],["约","","yue1",["yao1"],3,19],["连","","lian2",[],3,19],["浪","","lang4",[],3,19],["费","","fei4",[],3,19],["流","","liu2",[],3,19],["线","","xian4",[],3,19],["断","","duan4",[],3,19],["猜","","cai1",[],3,19],["摇","","yao2",[],3,19],["渴","","ke3",[],3,19],["低","","di1",[],3,19]];
 var TERMS=["一上","一下","二上","二下"];
+var ROUNDS=10,DAILY_GOAL=20;
+var RANKS=[["🐼","Panda Cub"],["🎋","Bamboo Nibbler"],["📚","Pinyin Pupil"],["🎵","Tone Tamer"],["🏅","Character Champion"],["🧙","Word Wizard"],["🥋","Pinyin Master"],["🐉","Dragon Scholar"],["👑","Legend Panda"]];
 var MK={a:"āáǎà",e:"ēéěè",i:"īíǐì",o:"ōóǒò",u:"ūúǔù","ü":"ǖǘǚǜ"};
 function mark(r){
   var b=r.slice(0,-1),t=+r.slice(-1);
@@ -104,57 +210,186 @@ function mark(r){
 }
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x}return a}
 var $=function(id){return document.getElementById(id)};
-var ROUNDS=10,round,score,cur,items,locked,pool=[];
+function h(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e}
+function clear(e){while(e.firstChild)e.removeChild(e.firstChild)}
 
-function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+// ---------- saved progress ----------
+var SAVE_KEY="pinyinPandaSave2";
+function defaults(){return{xp:0,correct:0,rounds:0,stats:{},badges:{},best:{},modes:{1:0,2:0},cleared:0,day:{last:"",streak:0},daily:{d:"",n:0,claimed:false},sound:true,sel:"all|all",tricky:false}}
+function load(){var d=defaults();try{var raw=localStorage.getItem(SAVE_KEY);if(raw){var o=JSON.parse(raw);for(var k in o)d[k]=o[k]}}catch(e){}return d}
+var S=load();
+function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify(S))}catch(e){}}
+function dstr(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function today(){return dstr(new Date())}
+function yesterday(){return dstr(new Date(Date.now()-864e5))}
+function touchDay(){
+  var t=today();
+  if(S.daily.d!==t)S.daily={d:t,n:0,claimed:false};
+  if(S.day.last===t)return;
+  S.day.streak=(S.day.last===yesterday())?S.day.streak+1:1;
+  S.day.last=t;
+}
+function liveStreak(){return(S.day.last===today()||S.day.last===yesterday())?S.day.streak:0}
+function dailyN(){return S.daily.d===today()?S.daily.n:0}
 
-// word picker
+// ---------- levels, mastery ----------
+function levelInfo(xp){var L=1,need=100;while(xp>=need){xp-=need;L++;need=100*L}return{L:L,into:xp,need:need}}
+function rankOf(L){return RANKS[Math.min(Math.floor((L-1)/2),RANKS.length-1)]}
+function status(c){var e=S.stats[c];if(!e)return 0;var t=e[0]+e[1];return t>=6?3:t>=3?2:1}
+function masteredCount(){var n=0;for(var c in S.stats)if(status(c)===3)n++;return n}
+function trickyList(){return DATA.filter(function(d){var e=S.stats[d[0]];return e&&e[2]})}
+function weight(d){var e=S.stats[d[0]];if(!e)return 2.5;return 1+(6-e[0]-e[1])*.4+(e[2]?3:0)}
+function pickItems(pool,n){
+  var arr=pool.slice(),out=[];
+  while(out.length<n&&arr.length){
+    var tot=0,i;for(i=0;i<arr.length;i++)tot+=weight(arr[i]);
+    var r=Math.random()*tot;for(i=0;i<arr.length;i++){r-=weight(arr[i]);if(r<=0)break}
+    if(i>=arr.length)i=arr.length-1;
+    out.push(arr.splice(i,1)[0]);
+  }
+  return out;
+}
+
+// ---------- badges ----------
+var BADGES=[
+ {id:"first",e:"🎈",n:"First Round",d:"Finish a round",ok:function(){return S.rounds>=1}},
+ {id:"perfect",e:"💯",n:"Perfect 10",d:"Get 10 out of 10",ok:function(c){return c.perfect}},
+ {id:"fire",e:"🔥",n:"On Fire",d:"Get 5 right in a row",ok:function(c){return c.maxStreak>=5}},
+ {id:"both",e:"🔄",n:"Both Ways",d:"Finish a round of each challenge",ok:function(){return S.modes[1]>0&&S.modes[2]>0}},
+ {id:"lesson",e:"📘",n:"Lesson Hero",d:"Get 10 out of 10 on one lesson",ok:function(c){return c.perfect&&c.single}},
+ {id:"fix",e:"🎯",n:"Tricky Tamer",d:"Fix 10 tricky words",ok:function(){return S.cleared>=10}},
+ {id:"c100",e:"💪",n:"Century",d:"100 right answers",ok:function(){return S.correct>=100}},
+ {id:"c500",e:"🚀",n:"Rocket",d:"500 right answers",ok:function(){return S.correct>=500}},
+ {id:"d3",e:"📅",n:"3-Day Streak",d:"Play 3 days in a row",ok:function(){return S.day.streak>=3}},
+ {id:"d7",e:"🗓️",n:"Week Warrior",d:"Play 7 days in a row",ok:function(){return S.day.streak>=7}},
+ {id:"m10",e:"🌟",n:"Word Collector",d:"Master 10 characters",ok:function(){return masteredCount()>=10}},
+ {id:"m50",e:"🏅",n:"Character Hero",d:"Master 50 characters",ok:function(){return masteredCount()>=50}},
+ {id:"m200",e:"🏆",n:"Hanzi Legend",d:"Master 200 characters",ok:function(){return masteredCount()>=200}},
+ {id:"l5",e:"⭐",n:"Level 5",d:"Reach level 5",ok:function(){return levelInfo(S.xp).L>=5}},
+ {id:"l10",e:"👑",n:"Level 10",d:"Reach level 10",ok:function(){return levelInfo(S.xp).L>=10}}
+];
+
+// ---------- sound and effects ----------
+var AC=null;
+function ac(){if(AC===null){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){AC=false}}return AC}
+function tone(f,t,d,type,v){
+  var a=ac();if(!a||!S.sound)return;
+  try{var o=a.createOscillator(),g=a.createGain(),s=a.currentTime+t;
+    o.type=type||"sine";o.frequency.value=f;g.gain.setValueAtTime(v||.15,s);g.gain.exponentialRampToValueAtTime(.001,s+d);
+    o.connect(g);g.connect(a.destination);o.start(s);o.stop(s+d+.02)}catch(e){}
+}
+function sfx(k){
+  if(k==="ok"){tone(660,0,.12);tone(880,.1,.18)}
+  else if(k==="no"){tone(200,0,.28,"sawtooth",.07)}
+  else if(k==="up"){[523,659,784,1047].forEach(function(f,i){tone(f,i*.12,.22)})}
+}
+function confetti(n){
+  var fx=$("fx"),em=["🎉","⭐","✨","🎊","🐼"];
+  for(var i=0;i<(n||24);i++){
+    var p=h("span","fxp",em[i%em.length]);
+    p.style.left=Math.random()*100+"%";p.style.animationDelay=Math.random()*.6+"s";
+    fx.appendChild(p);
+    (function(x){setTimeout(function(){if(x.parentNode)x.parentNode.removeChild(x)},2800)})(p);
+  }
+}
+var toastT=null;
+function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show")},2200)}
+
+// ---------- screens ----------
+var SCREENS=["home","play","end","coll","trophy"];
+function show(id){SCREENS.forEach(function(s){$(s).classList.toggle("hide",s!==id)});if(id==="home")renderHome();try{window.scrollTo(0,0)}catch(e){}}
+
+// ---------- word picker ----------
 function fillTerms(){
-  var s=$("selTerm");s.innerHTML="";
-  var o=document.createElement("option");o.value="all";o.textContent="All words ("+DATA.length+")";s.appendChild(o);
+  var s=$("selTerm");clear(s);
+  var o=h("option","","All words ("+DATA.length+")");o.value="all";s.appendChild(o);
   TERMS.forEach(function(t,i){var n=DATA.filter(function(d){return d[4]===i}).length;
-    var o=document.createElement("option");o.value=i;o.textContent=t+" ("+n+")";s.appendChild(o)});
+    var o=h("option","",t+" ("+n+")");o.value=i;s.appendChild(o)});
 }
 function fillLessons(){
-  var t=$("selTerm").value,s=$("selLesson");s.innerHTML="";
-  var o=document.createElement("option");o.value="all";o.textContent="All lessons";s.appendChild(o);
+  var t=$("selTerm").value,s=$("selLesson");clear(s);
+  var o=h("option","","All lessons");o.value="all";s.appendChild(o);
   if(t==="all"){s.disabled=true;return}
   s.disabled=false;
   var seen={};DATA.forEach(function(d){if(d[4]===+t&&!seen[d[5]]){seen[d[5]]=1;
-    var o=document.createElement("option");o.value=d[5];o.textContent="第"+d[5]+"课 (Lesson "+d[5]+")";s.appendChild(o)}});
+    var o=h("option","","第"+d[5]+"课 (Lesson "+d[5]+")");o.value=d[5];s.appendChild(o)}});
 }
-function buildPool(){
-  var t=$("selTerm").value,l=$("selLesson").value;
-  pool=DATA.filter(function(d){return t==="all"||(d[4]===+t&&(l==="all"||d[5]===+l))});
-  $("poolInfo").textContent=pool.length+" characters to practise";
-  var key="pinyinPandaBest|"+t+"|"+(t==="all"?"all":l);
-  var b=store(key);$("best").textContent=b?"⭐ Best score here: "+b+" / "+ROUNDS:"";
-  store("pinyinPandaSel",t+"|"+l);
+function selection(){var t=$("selTerm").value,l=$("selLesson").value;return{t:t,l:t==="all"?"all":l}}
+function poolNow(){
+  if(S.tricky)return trickyList();
+  var s=selection();
+  return DATA.filter(function(d){return s.t==="all"||(d[4]===+s.t&&(s.l==="all"||d[5]===+s.l))});
 }
-$("selTerm").onchange=function(){fillLessons();buildPool()};
-$("selLesson").onchange=buildPool;
+function bestKey(m){var s=selection();return"m"+m+"|"+s.t+"|"+s.l}
+function renderHome(){
+  var L=levelInfo(S.xp),r=rankOf(L.L);
+  $("avatar").textContent=r[0];
+  $("lvl").textContent="Level "+L.L+" · "+r[1];
+  $("xpbar").style.width=(L.into/L.need*100)+"%";
+  $("xptxt").textContent=L.into+" / "+L.need+" XP to level "+(L.L+1);
+  var st=liveStreak();
+  $("streak").textContent=st?"🔥 "+st+"-day streak":"🔥 Start a streak!";
+  var n=Math.min(dailyN(),DAILY_GOAL);
+  $("goal").textContent=n>=DAILY_GOAL?"🎯 Daily goal done!":"🎯 Today "+n+" / "+DAILY_GOAL;
+  $("goalbar").style.width=(n/DAILY_GOAL*100)+"%";
+  var tl=trickyList().length;
+  if(S.tricky&&!tl)S.tricky=false;
+  $("tricky").textContent="🎯 Tricky words only ("+tl+")";
+  $("tricky").disabled=!tl;
+  $("tricky").classList.toggle("on",!!S.tricky);
+  $("selTerm").disabled=!!S.tricky;$("selLesson").disabled=!!S.tricky||$("selTerm").value==="all";
+  var p=poolNow();
+  $("poolInfo").textContent=p.length+" characters to practise";
+  var b1=S.best[bestKey(1)],b2=S.best[bestKey(2)];
+  $("b1").textContent=S.tricky?"":(b1!=null?"⭐ Best here: "+b1+" / "+ROUNDS:"");
+  $("b2").textContent=S.tricky?"":(b2!=null?"⭐ Best here: "+b2+" / "+ROUNDS:"");
+  $("c1").disabled=$("c2").disabled=!p.length;
+  $("snd").textContent=S.sound?"🔊":"🔇";
+}
+$("selTerm").onchange=function(){fillLessons();S.sel=$("selTerm").value+"|"+$("selLesson").value;save();renderHome()};
+$("selLesson").onchange=function(){S.sel=$("selTerm").value+"|"+$("selLesson").value;save();renderHome()};
+$("tricky").onclick=function(){S.tricky=!S.tricky;save();renderHome()};
+$("snd").onclick=function(){S.sound=!S.sound;save();renderHome();sfx("ok")};
 
-function speak(){
-  try{var u=new SpeechSynthesisUtterance(cur[0]);u.lang="zh-CN";u.rate=.7;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}
+// ---------- round ----------
+var M=1,round,score,cur,items,locked,streak,R,RPOOL=[],token=0;
+function speak(c){
+  try{var u=new SpeechSynthesisUtterance(c);u.lang="zh-CN";u.rate=.7;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}
 }
-function start(){
-  buildPool();
-  items=shuffle(pool.slice()).slice(0,ROUNDS);round=0;score=0;
-  $("start").classList.add("hide");$("end").classList.add("hide");$("play").classList.remove("hide");
-  next();
+function startRound(mode){
+  var pool=poolNow();if(!pool.length)return;
+  M=mode;touchDay();token++;RPOOL=pool;
+  items=pickItems(pool,Math.min(ROUNDS,pool.length));
+  round=0;score=0;streak=0;
+  R={xpStart:S.xp,levelStart:levelInfo(S.xp).L,maxStreak:0,missed:[],seen:{}};
+  S.sel=$("selTerm").value+"|"+$("selLesson").value;save();
+  show("play");next();
 }
+// Challenge 1: character -> choose pinyin
 function makeOptions(it){
   var right=mark(it[2]),valid={},seen={},opts=[right],base=it[2].slice(0,-1);
   valid[right]=1;seen[right]=1;
   it[3].forEach(function(r){valid[mark(r)]=1});
   function add(r){if(r&&!valid[r]&&!seen[r]){seen[r]=1;opts.push(r);return true}return false}
-  // one wrong answer with the same letters but a different tone
   var tones=shuffle([1,2,3,4]);
   for(var k=0;k<4;k++){if(add(mark(base+tones[k])))break}
-  // fill up with the pinyin of other characters
   for(var n=0;opts.length<3&&n<300;n++){add(mark(DATA[Math.floor(Math.random()*DATA.length)][2]))}
   var also=it[3].map(mark).filter(function(r){return r!==right});
   return{right:right,also:also,list:shuffle(opts)};
+}
+// Challenge 2: pinyin -> choose character
+function makeCharOptions(it,cands){
+  var shown=it[2],base=shown.slice(0,-1);
+  function clash(d){return d===it||d[2]===shown||d[3].indexOf(shown)>-1}
+  function usable(list){return list.filter(function(d){return !clash(d)})}
+  var pool=usable(cands);
+  if(pool.length<2)pool=usable(DATA);
+  var opts=[it],used={};used[it[0]]=1;
+  var same=pool.filter(function(d){return d[2].slice(0,-1)===base});
+  if(same.length){var s=same[Math.floor(Math.random()*same.length)];opts.push(s);used[s[0]]=1}
+  var rest=shuffle(pool.filter(function(d){return !used[d[0]]}));
+  for(var i=0;opts.length<3&&i<rest.length;i++)opts.push(rest[i]);
+  return{right:it[0],list:shuffle(opts),shown:mark(shown)};
 }
 function next(){
   if(round>=items.length)return finish();
@@ -162,45 +397,146 @@ function next(){
   $("rd").textContent="Question "+(round+1)+" / "+items.length;
   $("sc").textContent="⭐ "+score;
   $("pg").style.width=(round/items.length*100)+"%";
-  $("pic").textContent=cur[1];$("han").textContent=cur[0];$("msg").textContent="";
-  var o=makeOptions(cur),box=$("opts");box.innerHTML="";
-  o.list.forEach(function(p){
-    var b=document.createElement("button");b.className="opt";b.textContent=p;
-    b.onclick=function(){pick(b,p===o.right,o)};box.appendChild(b);
-  });
+  $("combo").textContent=streak>=2?"🔥 "+streak+" in a row!":"";
+  $("msg").textContent="";
+  var box=$("opts");clear(box);
+  var o;
+  if(M===1){
+    $("pic").classList.remove("hide");$("han").classList.remove("hide");$("pin").classList.add("hide");
+    $("pic").textContent=cur[1];$("han").textContent=cur[0];
+    box.className="opts";
+    o=makeOptions(cur);
+    o.list.forEach(function(p){
+      var b=h("button","opt",p);
+      b.onclick=function(){answer(b,p===o.right,o)};box.appendChild(b);
+    });
+  }else{
+    $("pic").classList.add("hide");$("han").classList.add("hide");$("pin").classList.remove("hide");
+    $("pin").textContent=mark(cur[2]);
+    box.className="opts chars";
+    o=makeCharOptions(cur,RPOOL);
+    o.list.forEach(function(d){
+      var b=h("button","opt cjk",d[0]);
+      b.onclick=function(){answer(b,d[0]===o.right,o)};box.appendChild(b);
+    });
+  }
 }
-function pick(btn,ok,o){
+function record(it,ok){
+  var c=it[0],e=S.stats[c]||(S.stats[c]=[0,0,0]),i=M-1;
+  if(ok){e[i]=Math.min(3,e[i]+1);if(e[2]){e[2]=0;S.cleared++}}
+  else{e[i]=Math.max(0,e[i]-1);e[2]=1}
+}
+function answer(btn,ok,o){
   if(locked)return;locked=true;
-  if(ok){btn.classList.add("good");score++;$("msg").textContent=["Great job! 🎉","Yes! 🌟","Super! 👏"][Math.floor(Math.random()*3)]}
-  else{btn.classList.add("bad");
-    $("msg").textContent="Almost! It’s "+o.right+(o.also.length?" (also "+o.also.join(", ")+")":"");
-    Array.prototype.forEach.call($("opts").children,function(c){if(c.textContent===o.right)c.classList.add("good")})}
+  record(cur,ok);
+  if(ok){
+    btn.classList.add("good");score++;streak++;if(streak>R.maxStreak)R.maxStreak=streak;
+    var gain=10+Math.min(streak-1,5)*2;
+    S.xp+=gain;S.correct++;
+    if(S.daily.d!==today())S.daily={d:today(),n:0,claimed:false};
+    S.daily.n++;
+    if(S.daily.n>=DAILY_GOAL&&!S.daily.claimed){S.daily.claimed=true;S.xp+=50;R.goalHit=true;toast("🎯 Daily goal reached! +50 XP");confetti(18)}
+    $("msg").textContent=["Great job! 🎉","Yes! 🌟","Super! 👏","Well done! 💪"][Math.floor(Math.random()*4)]+"  +"+gain+" XP";
+    sfx("ok");
+  }else{
+    btn.classList.add("bad");streak=0;
+    if(!R.seen[cur[0]]){R.seen[cur[0]]=1;R.missed.push(cur)}
+    if(M===1)$("msg").textContent="Almost! It’s "+o.right+(o.also.length?" (also "+o.also.join(", ")+")":"");
+    else $("msg").textContent="Almost! "+o.shown+" is "+o.right;
+    Array.prototype.forEach.call($("opts").children,function(c){if(c.textContent===o.right)c.classList.add("good")});
+    sfx("no");
+  }
   $("sc").textContent="⭐ "+score;
-  speak();round++;
-  setTimeout(next,ok?1200:2600);
+  $("combo").textContent=streak>=2?"🔥 "+streak+" in a row!":"";
+  save();
+  speak(cur[0]);round++;
+  var t=token;
+  setTimeout(function(){if(t===token)next()},ok?1200:2600);
 }
 function finish(){
-  var n=items.length;
-  $("play").classList.add("hide");$("end").classList.remove("hide");
-  var r=n?score/n:0;
-  $("medal").textContent=r>=.9?"🏆":r>=.6?"🥈":"🐼";
+  var n=items.length,ratio=n?score/n:0,stars=ratio>=1?3:ratio>=.8?2:ratio>=.5?1:0;
+  var perfect=(n===ROUNDS&&score===n),bonus=Math.round(20*n/ROUNDS)+(perfect?30:0);
+  S.xp+=bonus;S.rounds++;S.modes[M]=(S.modes[M]||0)+1;
+  var s=selection(),single=!S.tricky&&s.t!=="all"&&s.l!=="all";
+  if(!S.tricky){var k=bestKey(M);if(S.best[k]==null||score>S.best[k])S.best[k]=score}
+  var ctx={perfect:perfect,maxStreak:R.maxStreak,single:single},newB=[];
+  BADGES.forEach(function(b){if(!S.badges[b.id]&&b.ok(ctx)){S.badges[b.id]=today();newB.push(b)}});
+  var L=levelInfo(S.xp).L,up=L>R.levelStart;
+  save();
+  show("end");
+  $("stars").textContent="★★★".slice(0,stars)+"☆☆☆".slice(0,3-stars);
   $("final").textContent=score+" / "+n;
-  $("endmsg").textContent=r>=.9?"Amazing! You’re a pinyin star!":r>=.6?"Nice work! Try for a higher score!":"Good try! Practice makes perfect.";
-  var t=$("selTerm").value,l=$("selLesson").value;
-  var key="pinyinPandaBest|"+t+"|"+(t==="all"?"all":l);
-  var b=parseInt(store(key)||"0",10);if(score>b)store(key,String(score));
+  $("endmsg").textContent=perfect?"Perfect! You’re a pinyin star!":ratio>=.8?"Amazing work!":ratio>=.5?"Nice work! Try for more stars!":"Good try! Practice makes perfect.";
+  var line=$("xpline");clear(line);
+  [["⭐","+"+(S.xp-R.xpStart)+" XP"],["🔥","Best combo "+R.maxStreak],["🌟","Mastered "+masteredCount()]].forEach(function(x){
+    var m=h("div","m");m.appendChild(h("b","",x[0]));m.appendChild(document.createTextNode(x[1]));line.appendChild(m)});
+  var lu=$("lvlup");
+  if(up){lu.classList.remove("hide");var r=rankOf(L);lu.textContent="🎉 Level up! You are now Level "+L+" · "+r[0]+" "+r[1]}
+  else lu.classList.add("hide");
+  var nb=$("newbadges");clear(nb);
+  newB.forEach(function(b){var c=h("div","banner","🏆 New trophy: "+b.e+" "+b.n+" – "+b.d);nb.appendChild(c)});
+  var mb=$("missedBox"),ms=$("missed");clear(ms);
+  if(R.missed.length){
+    mb.classList.remove("hide");
+    R.missed.forEach(function(d){var m=h("div","m");var b=h("b","cjk",d[0]);m.appendChild(b);m.appendChild(document.createTextNode(mark(d[2])));ms.appendChild(m)});
+  }else mb.classList.add("hide");
+  if(up||newB.length||stars===3){sfx("up");confetti(up?36:24)}
 }
-$("go").onclick=start;
-$("again").onclick=start;
-$("menu").onclick=function(){$("end").classList.add("hide");$("start").classList.remove("hide");buildPool()};
-$("spk").onclick=speak;
+$("c1").onclick=function(){startRound(1)};
+$("c2").onclick=function(){startRound(2)};
+$("again").onclick=function(){startRound(M)};
+$("home2").onclick=function(){show("home")};
+$("quit").onclick=function(){token++;save();show("home")};
+$("spk").onclick=function(){if(cur)speak(cur[0])};
 
+// ---------- collection ----------
+var collTerm=0,collSel=null;
+function renderColl(){
+  var tabs=$("collTabs");clear(tabs);
+  TERMS.forEach(function(t,i){var b=h("button",i===collTerm?"on":"",t);b.onclick=function(){collTerm=i;collSel=null;renderColl()};tabs.appendChild(b)});
+  var m=masteredCount(),seen=Object.keys(S.stats).length;
+  $("collSum").textContent="Mastered "+m+" · Seen "+seen+" · Total "+DATA.length;
+  var g=$("grid");clear(g);
+  DATA.filter(function(d){return d[4]===collTerm}).forEach(function(d){
+    var e=S.stats[d[0]];
+    var b=h("button","cell cjk s"+status(d[0])+(e&&e[2]?" t":"")+(collSel===d[0]?" sel":""),d[0]);
+    b.onclick=function(){collSel=d[0];renderColl()};g.appendChild(b);
+  });
+  var dt=$("detail");
+  if(collSel){
+    var it=DATA.filter(function(d){return d[0]===collSel})[0];
+    dt.classList.remove("hide");
+    $("dChar").textContent=it[0];
+    $("dPin").textContent=[it[2]].concat(it[3]).map(mark).join(" / ");
+    var s=["Not played yet","Learning","Growing","Mastered!"][status(it[0])];
+    $("dInfo").textContent=(it[1]?it[1]+"  ":"")+TERMS[it[4]]+" 第"+it[5]+"课 · "+s;
+    $("dSpk").onclick=function(){speak(it[0])};
+  }else dt.classList.add("hide");
+}
+$("openColl").onclick=function(){show("coll");renderColl()};
+$("back1").onclick=function(){show("home")};
+
+// ---------- trophies ----------
+function renderTrophies(){
+  var g=$("trGrid");clear(g);var n=0;
+  BADGES.forEach(function(b){
+    var got=!!S.badges[b.id];if(got)n++;
+    var c=h("div","tr"+(got?"":" locked"));
+    c.appendChild(h("div","e",got?b.e:"🔒"));c.appendChild(h("b","",b.n));c.appendChild(h("small","",b.d));
+    g.appendChild(c);
+  });
+  $("trSum").textContent=n+" of "+BADGES.length+" trophies won";
+}
+$("openTrophy").onclick=function(){show("trophy");renderTrophies()};
+$("back2").onclick=function(){show("home")};
+
+// ---------- start-up ----------
 fillTerms();
-var sel=(store("pinyinPandaSel")||"all|all").split("|");
+var sel=String(S.sel||"all|all").split("|");
 $("selTerm").value=sel[0];if($("selTerm").value!==sel[0])$("selTerm").value="all";
 fillLessons();
 $("selLesson").value=sel[1];if($("selLesson").value!==sel[1])$("selLesson").value="all";
-buildPool();
+renderHome();
 
 // make it installable and work offline
 if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost")){
